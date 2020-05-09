@@ -1,17 +1,31 @@
-cmake_minimum_required (VERSION 2.6)
-project (hnsw_lib)
+cmake_minimum_required(VERSION 2.6)
+project(hnswlib VERSION 1.0.0 LANGUAGES CXX DESCRIPTION "Header-only C++/python library for fast approximate nearest neighbors")
+set(CMAKE_CXX_STANDARD 11)
 
-include_directories("${PROJECT_BINARY_DIR}")
+include(GNUInstallDirs)
 
+set(SOURCE_HEADERS
+    ${PROJECT_NAME}/bruteforce.h
+    ${PROJECT_NAME}/hnswalg.h
+    ${PROJECT_NAME}/hnswlib.h
+    ${PROJECT_NAME}/space_ip.h 
+    ${PROJECT_NAME}/space_l2.h
+    ${PROJECT_NAME}/visited_list_pool.h
+)
 
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
-set(SOURCE_EXE main.cpp)            
-
-set(SOURCE_LIB sift_1b.cpp)
-
-add_library(sift_test STATIC ${SOURCE_LIB})
-
-
-add_executable(main ${SOURCE_EXE})
-SET( CMAKE_CXX_FLAGS  "-Ofast -lrt -DNDEBUG -std=c++11 -DHAVE_CXX0X -openmp -march=native -fpic -w -fopenmp -ftree-vectorize -ftree-vectorizer-verbose=0" )
-target_link_libraries(main sift_test) 
+install(TARGETS ${PROJECT_NAME}
+    EXPORT ${PROJECT_NAME}Config
+    RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+)
+install(FILES ${SOURCE_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+install(EXPORT ${PROJECT_NAME}Config DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake)
+export(TARGETS ${PROJECT_NAME} FILE ${PROJECT_NAME}Config.cmake)
