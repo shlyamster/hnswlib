@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <fstream>
 #include <mutex>
+#include <cstring>
 #include <algorithm>
 
 namespace hnswlib {
