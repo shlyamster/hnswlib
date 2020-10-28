@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(hnswlib VERSION 1.0.0 LANGUAGES CXX DESCRIPTION "Header-only C++/python library for fast approximate nearest neighbors")
+project(hnswlib VERSION 0.4.0 LANGUAGES CXX DESCRIPTION "Header-only C++/python library for fast approximate nearest neighbors")
 set(CMAKE_CXX_STANDARD 11)
 
 include(GNUInstallDirs)
@@ -8,7 +8,7 @@ set(SOURCE_HEADERS
     ${PROJECT_NAME}/bruteforce.h
     ${PROJECT_NAME}/hnswalg.h
     ${PROJECT_NAME}/hnswlib.h
-    ${PROJECT_NAME}/space_ip.h 
+    ${PROJECT_NAME}/space_ip.h
     ${PROJECT_NAME}/space_l2.h
     ${PROJECT_NAME}/visited_list_pool.h
 )
