@@ -45,12 +45,12 @@ class pairGreater {
 
 template <typename T>
 static void writeBinaryPOD(std::ostream &out, const T &podRef) {
-    out.write((char *)&podRef, sizeof(T));
+    out.write(reinterpret_cast<char *>(&podRef), sizeof(T));
 }
 
 template <typename T>
-static void readBinaryPOD(std::istream &in, T &podRef) {
-    in.read((char *)&podRef, sizeof(T));
+static void readBinaryPOD(std::istream &in, T &podRef) {  // NOLINT
+    in.read(reinterpret_cast<char *>(&podRef), sizeof(T));
 }
 
 template <typename MTYPE>
