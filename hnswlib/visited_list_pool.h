@@ -30,7 +30,7 @@ class VisitedList {
     }
 
     ~VisitedList() { delete[] mass; }
-}
+};
 
 ///////////////////////////////////////////////////////////
 //
@@ -75,6 +75,6 @@ class VisitedListPool {
             delete rez;
         }
     }
-}
+};
 
 }  // namespace hnswlib
